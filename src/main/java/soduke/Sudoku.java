@@ -2,6 +2,9 @@ package soduke;
 
 import java.util.HashMap;
 
+/**
+ * @author yangl786
+ */
 public class Sudoku {
 
     public static void main(String[] args) {
@@ -17,14 +20,14 @@ public class Sudoku {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0}
         };
         Sudoku sudoku = new Sudoku(init);
-        Long s = System.currentTimeMillis();
+        long s = System.currentTimeMillis();
         try {
             sudoku.sudoku();
         } catch (Exception e) {
             //
         }
         long e = System.currentTimeMillis();
-        System.out.println("处理时间: "+(e-s)+" ms");
+        System.out.println("\n处理时间: "+(e-s)/1000.0+" 秒");
     }
 
     private boolean[][] initNum;
@@ -72,9 +75,9 @@ public class Sudoku {
      * 打印结果
      */
     void print() {
-        for (int i = 0; i < init.length; i++) {
-            for (int j = 0; j < init[i].length; j++) {
-                System.out.print(init[i][j] + "\t");
+        for (int[] ints : init) {
+            for (int anInt : ints) {
+                System.out.print(anInt + "\t");
             }
             System.out.println();
         }
@@ -84,8 +87,8 @@ public class Sudoku {
      * 数值是否是合法的
      * 满足数独的规则
      *
-     * @param position
-     * @return
+     * @param position 位置
+     * @return 是否合法
      */
     boolean isOk(Position position) {
         //当前行判断
@@ -157,10 +160,10 @@ public class Sudoku {
     /**
      * 获取第一个空白值
      *
-     * @return
+     * @return 第一个空白位置
      */
     Position first() {
-        if (initNum[0][0] == false) {
+        if (!initNum[0][0]) {
             return new Position(0, 0);
         }
         return next(new Position(0, 0));
@@ -195,8 +198,8 @@ public class Sudoku {
     /**
      * 获取上一个位置
      *
-     * @param current
-     * @return
+     * @param current 当前位置
+     * @return 上一个空白位置
      */
     Position previous(Position current) {
         if (current.getX() == 0 && current.getY() == 0) {
